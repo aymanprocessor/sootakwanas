@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">صوتك ونس</string>
+    <string name="search_for_doctors">البحث عن الدكتور</string>
+    <string name="search_for_places">البحث عن الأماكن</string>
+    <string name="search_results">نتائج البحث</string>
+    <string name="government_prompt">اختر محافظة</string>
+    <string name="place_prompt">اختر المكان</string>
+
+
+    <string-array name="government_arrays">
+        <item>اختر محافظة</item>
+        <item>القاهرة</item>
+        <item>الاسكندرية</item>
+        <item>الجيزة</item>
+        <item>القليوبية</item>
+        <item>المنوفية</item>
+        <item>الغربية</item>
+        <item>الدقهلية</item>
+        <item>كفر الشيخ</item>
+        <item>بورسعيد</item>
+        <item>الاسماعيلية </item>
+        <item>الفيوم</item>
+        <item>بنى سويف</item>
+        <item>مرسى مطروح</item>
+        <item>المنيا</item>
+        <item>دمياط</item>
+        <item>البحيرة</item>
+        <item>الشرقية </item>
+        <item>شمال سيناء</item>
+        <item>جنوب سيناء</item>
+        <item>البحر الاحمر </item>
+        <item>الوادى الجديد</item>
+        <item>السويس</item>
+        <item>سوهاج</item>
+        <item>اسيوط</item>
+        <item>الاقصر</item>
+        <item>اسوان</item>
+        <item>قنا</item>
+    </string-array>
+
+    <string-array name="place_arrays">
+        <item>اختر مكان</item>
+        <item>التأهيل</item>
+        <item>المستشفيات</item>
+    </string-array>
+    </resources>
