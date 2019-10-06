@@ -7,13 +7,20 @@ public class Doctor {
     public String Number;
     public String Government;
     public String City;
+    public String lat;
+    public String lon;
+    public String label;
+    public String Address;
 
-    public Doctor( String name, String number, String government, String city) {
-
-        this.Name = name;
-        this.Number = number;
-        this.Government = government;
-        this.City = city;
+    public Doctor(String name, String number, String government, String city, String lat, String lon, String label, String address) {
+        Name = name;
+        Number = number;
+        Government = government;
+        City = city;
+        this.lat = lat;
+        this.lon = lon;
+        this.label = label;
+        Address = address;
     }
 
     public String getName() {
@@ -48,13 +55,35 @@ public class Doctor {
         City = city;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "Name='" + Name + '\'' +
-                ", Number='" + Number + '\'' +
-                ", Government='" + Government + '\'' +
-                ", City='" + City + '\'' +
-                '}';
+    public String getLat() {
+        return lat;
     }
+
+    public void setLat(String lat) {
+        this.lat = lat;
     }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+}

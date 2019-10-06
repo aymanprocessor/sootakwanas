@@ -26,6 +26,7 @@ public class searchForDoctors extends AppCompatActivity implements AdapterView.O
     private TextView toolbarTitle;
     private Toolbar mToolbar;
     private Button mButtonDoctor;
+    private Spinner spinner;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,23 +42,38 @@ public class searchForDoctors extends AppCompatActivity implements AdapterView.O
         mButtonDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(searchForDoctors.this, DoctorResults.class);
-                startActivity(i);
+                final Intent ii = new Intent(searchForDoctors.this, DoctorResults.class);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        ii.putExtra("gover",adapterView.getItemAtPosition(i).toString());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+                startActivity(ii);
 
             }
         });
 
 
-        Spinner coloredSpinner = findViewById(R.id.spinner1);
+        spinner = findViewById(R.id.spinner1);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.government_arrays, R.layout.spinner_text_details);
 
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-        coloredSpinner.setAdapter(adapter);
-        coloredSpinner.setOnItemSelectedListener(this);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
 
     }
 

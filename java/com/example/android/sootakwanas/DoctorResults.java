@@ -1,17 +1,16 @@
 package com.example.android.sootakwanas;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,22 +25,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import me.thanel.swipeactionview.SwipeActionView;
-import me.thanel.swipeactionview.SwipeDirection;
-import me.thanel.swipeactionview.SwipeGestureListener;
+import mobile.sarproj.com.layout.SwipeLayout;
 
 
-public class DoctorResults extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class DoctorResults extends AppCompatActivity  {
     private ArrayList<Doctor> doctors;
     private TextView toolbarTitle;
     private Toolbar mToolbar;
     private RecyclerView doctor;
     private RecyclerView.Adapter adapter;
     private RequestQueue mQueue;
-    private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener listener;
+    private String gover;
+    private List<Doctor> filtered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,27 +52,27 @@ public class DoctorResults extends AppCompatActivity implements RecyclerItemTouc
         toolbarTitle = findViewById(R.id.toolbarTitle);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        gover = getIntent().getStringExtra("gover");
         toolbarTitle.setText("نتائج البحث");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         doctor = findViewById(R.id.recycler_view_doctor);
         mQueue = Volley.newRequestQueue(this);
         parseJson();
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper
-                (0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT , this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(doctor);
 
     }
 
 
     private void parseJson() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String url = "https://api.myjson.com/bins/wqzbt";
+        String url = "https://api.myjson.com/bins/feb7l";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // this problem .. that is solution to  problem because without
                         // this the array is empty
+
                         doctors = new ArrayList<>();
                         try {
                             JSONArray doctorJsonArray = response.getJSONArray("user");
@@ -86,20 +87,26 @@ public class DoctorResults extends AppCompatActivity implements RecyclerItemTouc
                                 Log.d("المدينة", city);
                                 String government = doctorDetails.getString("government");
                                 Log.d("المحافظة", government);
+                                String lat = doctorDetails.getString("lat");
+                                String lon = doctorDetails.getString("long");
+                                String label = doctorDetails.getString("label");
+                                String address = doctorDetails.getString("address");
 
-                                // textView.append(name + " ," + phone + " , " + city + " , " + government +
-                                //" \n\n" );
-
-
-                                doctors.add(new Doctor(name, phone, government, city));
+                                doctors.add(new Doctor(name, phone, government, city,lat,lon,label,address));
+                              filtered = doctors.stream().filter(x->x.Government == "الجيزة" ).collect(Collectors.toList());
 
                             }
 
                             // this with JsonParse Method
                             final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                             doctor.setLayoutManager(layoutManager);
-                            adapter = new DoctorAdapter(doctors);
+                            //ArrayList<Doctor> filt = new ArrayList<>(filtered);
+                            adapter = new DoctorAdapter(doctors,getApplicationContext());
                             doctor.setAdapter(adapter);
+
+
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -112,21 +119,13 @@ public class DoctorResults extends AppCompatActivity implements RecyclerItemTouc
             }
         });
 
+
+
         requestQueue.add(request);
         mQueue.add(request);
 
 
     }
 
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        listener.onSwiped(viewHolder, direction, viewHolder.getAdapterPosition());
-
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        listener.onPointerCaptureChanged(hasCapture);
-
-    }
-}

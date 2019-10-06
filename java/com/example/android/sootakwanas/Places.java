@@ -1,15 +1,22 @@
 package com.example.android.sootakwanas;
 
 public class Places {
-
     public String Name;
-    public String government;
+    public String Government;
     public String City;
+    public String lat;
+    public String lon;
+    public String label;
+    public String Address;
 
-    public Places(String name, String government, String city) {
-       this.Name = name;
-        this.government = government;
-       this.City = city;
+    public Places(String name, String government, String city, String lat, String lon, String label, String address) {
+        Name = name;
+        Government = government;
+        City = city;
+        this.lat = lat;
+        this.lon = lon;
+        this.label = label;
+        Address = address;
     }
 
     public String getName() {
@@ -21,11 +28,11 @@ public class Places {
     }
 
     public String getGovernment() {
-        return government;
+        return Government;
     }
 
     public void setGovernment(String government) {
-        this.government = government;
+        Government = government;
     }
 
     public String getCity() {
@@ -36,12 +43,35 @@ public class Places {
         City = city;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "name='" + Name + '\'' +
-                ", government='" + government + '\'' +
-                ", city='" + City + '\'' + +
-                '}';
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 }
